@@ -4,7 +4,7 @@ string mensagemDeBoasVindas = "Boas vindas ao Screen Sound\n";
 
 Dictionary<string, List<int>> bandasRegistradas = new Dictionary<string, List<int>>();
 bandasRegistradas.Add("Linkin Park", new List<int> {10 , 8, 6});
-bandasRegistradas.Add("Beatles", new List<int> ());
+bandasRegistradas.Add("The Beatles", new List<int> ());
 
 
 
@@ -45,7 +45,7 @@ void ExibirOpcoesDoMenu()
             AvaliarUmaBanda();
             break;
         case 4:
-            Console.WriteLine("Voce escolhey a opcao: " + opcaoEscolhidaNumerica);
+            ExibirMediaBanda();
             break;
         case -1:
             Console.WriteLine("Tchau, tchau :)");
@@ -109,9 +109,10 @@ void AvaliarUmaBanda()
     {
         Console.Write($"Qual a nota que a banda {nomeDaBanda} merece: ");
         int nota = int.Parse(Console.ReadLine()!);
-        bandasRegistradas[nomeDaBanda].Add(nota);
+        bandasRegistradas[nomeDaBanda].Add(nota); // acessa os valores da lista, podendo acessar diretamente o .Add
         Console.WriteLine($"\nA nota {nota} foi registrada com sucesso para a banda {nomeDaBanda}");
-        Thread.Sleep(2000);
+        Thread.Sleep(3000);
+        Console.Clear();
         ExibirOpcoesDoMenu();
     }
     else
@@ -122,8 +123,31 @@ void AvaliarUmaBanda()
         Console.Clear();
         ExibirOpcoesDoMenu();
     }
+}
 
-
+void ExibirMediaBanda()
+{
+    Console.Clear();
+    ExibirTituloDaOpcao("EXIBIR MÉDIA DA BANDA");
+    Console.Write("Digite o nome da banda que deseja exibir a média: ");
+    string nomeDaBanda = Console.ReadLine()!;
+    if (bandasRegistradas.ContainsKey(nomeDaBanda))
+    {
+        List<int> notasDaBanda = bandasRegistradas[nomeDaBanda];
+        Console.WriteLine($"\nA média da banda {nomeDaBanda} é {notasDaBanda.Average()}.");
+        Console.WriteLine("\n\nDigite uma tecla para voltar ao menu principal");
+        Console.ReadKey();
+        Console.Clear();
+        ExibirOpcoesDoMenu();
+    }
+    else
+    {
+        Console.WriteLine($"\nA banda {nomeDaBanda} não foi encontrada");
+        Console.WriteLine("Digite uma tecla para voltar ao menu inicial");
+        Console.ReadKey();
+        Console.Clear();
+        ExibirOpcoesDoMenu();
+    }
 }
 
 ExibirOpcoesDoMenu();
